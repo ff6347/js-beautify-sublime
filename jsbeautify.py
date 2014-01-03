@@ -58,7 +58,7 @@ def is_js_buffer(view):
 	if(syntaxPath != None):
 		syntax = os.path.splitext(syntaxPath)[0].split('/')[-1].lower()
 
-	return ext in ['js', 'json'] or "javascript" in syntax or "json" in syntax
+	return ext in ['js', 'json','jsx','jsxinc'] or "javascript" in syntax or "json" in syntax or "extendscript" in syntax
 
 class PreSaveFormatListner(sublime_plugin.EventListener):
 	"""Event listener to run JsBeautify during the presave event"""
@@ -71,7 +71,7 @@ class jsbeautifyCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		settings = self.view.settings()
 		opts = jsbeautifier.default_options()
-		for (k,v) in  opts.__dict__.items(): 
+		for (k,v) in  opts.__dict__.items():
 			if s.has(k):
 				setattr(opts,k,s.get(k))
 		selection = self.view.sel()[0]
